@@ -1,7 +1,7 @@
-# sonos_ewelink_webhook
+# sonos-ewelink-webhook
 Node.js REST server that listens for POST requests from jishi/node-sonos-http-api when registered as a webhook.  Watches playbackState in the POSTed JSON, and triggers POST to doganm95/ewelink-rest-api-server.  
 
-Example configuration:
+Example configuration is below.  For each state reported by node-sonos-http-api, a command accepted by ewelink-rest-api-server (currently on, off and toggle) can by configured followed by the number of milliseconds to delay before making the request.
 ```
 {
   "ewelink_server": "192.168.1.8",

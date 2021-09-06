@@ -54,11 +54,6 @@ fs.readFile('./settings.json', 'utf8', (err, data) => {
   const settings = JSON.parse(data);
 
   let server = http.createServer((req, res) => {
-    //console.log(req.method, req.url);
-    //for (let header in req.headers) {
-    //  console.log(header + ':', req.headers[header]);
-    //}
-
     console.log('');
 
     const buffer = [];
@@ -68,7 +63,6 @@ fs.readFile('./settings.json', 'utf8', (err, data) => {
 
       try {
         const json = JSON.parse(buffer.join(''));
-        //console.dir(json, { depth: 10 });
         console.log('');
 
         console.log("Detected state: " + json.data.state.playbackState);
@@ -76,9 +70,6 @@ fs.readFile('./settings.json', 'utf8', (err, data) => {
           var room = json.data.roomName.replace(/['"]+/g, '')
           var state = json.data.state.playbackState.replace(/['"]+/g, '')
           console.log(room + ": " + state);
-
-          //TODO: ignore rooms not in settings.json
-          //TODO: ignore states not in PLAYING, STOPPED, PAUSED_PLAYBACK, more?
 
           if(settings[room]) {
             console.log("Getting devices for " + room);
@@ -98,15 +89,10 @@ fs.readFile('./settings.json', 'utf8', (err, data) => {
             });
           }
         }
-
-        //console.dir(json.data.state.playbackState, { depth: 10 });
-
       } catch (e) {}
-
     });
   });
 
   server.listen(5007);
   console.log('Listening on http://localhost:5007/');
-
 });
